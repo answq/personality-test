@@ -10,7 +10,7 @@ const ResultModal = ({ result, mbtiDescription, onClose }) => {
   };
   //테스트 결과 목록으로 이동
   const handleNavigateToResults = () => {
-    navigate("/results");
+    navigate("/test-results");
   };
 
   return (
