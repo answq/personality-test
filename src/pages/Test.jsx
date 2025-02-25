@@ -4,7 +4,7 @@ import { calculateMBTI, mbtiDescriptions } from "../utils/mbtiCalculator";
 import ResultModal from "../components/ResultModal";
 import { useNavigate } from "react-router-dom";
 
-const Test = ({ user }) => {
+const Test = () => {
   const navigate = useNavigate();
   const [result, setResult] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,14 +17,10 @@ const Test = ({ user }) => {
     setIsModalOpen(true);
   };
 
-  //테스트 결과 목록으로 이동
-  const handleNavigateToResults = () => {
-    navigate("/results");
-  };
-
   //모달 닫기
-  const closeModal = () => {
+  const handleNavigateToTest = () => {
     setIsModalOpen(false);
+    navigate("/test")
   };
 
   return (
@@ -38,21 +34,14 @@ const Test = ({ user }) => {
             <TestForm onSubmit={handleTestSubmit} />
           </>
         ) : (
-          <>
-            <button
-              onClick={handleNavigateToResults}
-              className="w-full bg-primary-color text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition duration-300 hover:text-[#FF5A5F]"
-            >
-              다른 사람 결과도 보기
-            </button>
-          </>
+          <></>
         )}
       </div>
       {isModalOpen && (
         <ResultModal
           result={result}
           mbtiDescription={mbtiDescriptions[result]}
-          onClose={closeModal}
+          onClose={handleNavigateToTest}
         />
       )}
     </div>

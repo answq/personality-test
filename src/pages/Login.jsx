@@ -40,18 +40,18 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>로그인</h1>
-        <AuthForm
+    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full h-full overflow-y-auto">
+        <h1 className="text-3xl font-semibold text-gray-800 mb-6 text-center">로그인</h1>
+        <AuthForm 
           mode="login"
           formData={formData}
           setFormData={setFormData}
           onSubmit={handleLogin}
         />
-        <div>
-          <p>
-            아직 계정이 없으신가요? <Link to="/signup">회원가입</Link>
+        <div className="mt-6 text-center">
+          <p className="text-sm">
+            아직 계정이 없으신가요? <Link to="/signup" className="text-green-500 hover:text-blue-700 font-semibold">회원가입</Link>
           </p>
         </div>
       </div>

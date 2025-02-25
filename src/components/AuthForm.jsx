@@ -30,6 +30,7 @@ const AuthForm = ({ mode, onSubmit }) => {
           onChange={handleChange}
           placeholder="아이디"
           required
+          className="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
         />
         <input
           type="password"
@@ -38,6 +39,7 @@ const AuthForm = ({ mode, onSubmit }) => {
           onChange={handleChange}
           placeholder="비밀번호"
           required
+          className="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
         />
         {mode === "sign-up" && (
           <input
@@ -47,10 +49,16 @@ const AuthForm = ({ mode, onSubmit }) => {
             onChange={handleChange}
             placeholder="닉네임"
             required
+            className="w-full px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
           />
         )}
 
-        <button>{mode === "login" ? "로그인" : "회원가입"}</button>
+        <button
+          type="submit"
+          className="w-full py-2 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-800 transition duration-300"
+        >
+          {mode === "login" ? "로그인" : "회원가입"}
+        </button>
       </form>
     </div>
   );
