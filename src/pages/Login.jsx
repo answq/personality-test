@@ -1,8 +1,17 @@
 import AuthForm from "../components/AuthForm";
+import { useState, useContext } from "react";
 import { login, getUserProfile } from "../api/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
-const Login = ({ setUser }) => {
+const Login = () => {
+  const { setUser, saveToken } = useContext(AuthContext);
+
+  const [formData, setFormData] = useState({
+    id: "",
+    password: "",
+    nickname: "",
+  });
   const navigate = useNavigate();
 
   //로그인
@@ -12,8 +21,10 @@ const Login = ({ setUser }) => {
         id: formData.id,
         password: formData.password,
       });
-      localStorage.setItem("accessToken", data.accessToken);
-      if (data) {
+
+      saveToken(data.accessToken);
+
+      if (data.accessToken) {
         const userProfile = await getUserProfile(data.accessToken);
 
         setUser(userProfile);
@@ -24,7 +35,7 @@ const Login = ({ setUser }) => {
       }
     } catch (error) {
       alert("로그인에 실패했습니다. 다시 시도해주세요.");
-      console.log(error.response.data.message);
+      console.log(error.message);
     }
   };
 
@@ -32,7 +43,12 @@ const Login = ({ setUser }) => {
     <div>
       <div>
         <h1>로그인</h1>
-        <AuthForm mode="login" onSubmit={handleLogin} />
+        <AuthForm
+          mode="login"
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={handleLogin}
+        />
         <div>
           <p>
             아직 계정이 없으신가요? <Link to="/signup">회원가입</Link>

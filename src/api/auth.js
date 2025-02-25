@@ -13,7 +13,9 @@ export const login = async (userData) => {
 };
 
 export const getUserProfile = async (token) => {
-  const response = await axios.get(`${API_URL}/user`, token);
+  const response = await axios.get(`${API_URL}/user`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return response.data;
 };
 

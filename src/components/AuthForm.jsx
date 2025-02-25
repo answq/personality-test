@@ -1,11 +1,6 @@
-import { useState } from "react";
 
-const AuthForm = ({ mode, onSubmit }) => {
-  const [formData, setFormData] = useState({
-    id: "",
-    password: "",
-    nickname: "",
-  });
+const AuthForm = ({ mode, formData, setFormData, onSubmit }) => {
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,7 +13,7 @@ const AuthForm = ({ mode, onSubmit }) => {
   // 폼 제출 시 onSubmit 호출
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData); 
+    onSubmit(formData);
   };
 
   return (
@@ -43,6 +38,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         {mode === "signup" && (
           <input
             type="text"
+            name="nickname"
             value={formData.nickname}
             onChange={handleChange}
             placeholder="닉네임"
