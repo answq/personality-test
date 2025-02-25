@@ -1,20 +1,30 @@
 import { useState } from "react";
 import TestForm from "../components/TestForm";
 import { calculateMBTI, mbtiDescriptions } from "../utils/mbtiCalculator";
-//import { createTestResult } from "../api/testResults";
+import ResultModal from "../components/ResultModal";
 import { useNavigate } from "react-router-dom";
 
 const Test = ({ user }) => {
   const navigate = useNavigate();
   const [result, setResult] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  //답안 제출
   const handleTestSubmit = async (answers) => {
     const mbtiResult = calculateMBTI(answers);
-   setResult(mbtiResult);
+
+    setResult(mbtiResult);
+    setIsModalOpen(true);
   };
 
+  //테스트 결과 목록으로 이동
   const handleNavigateToResults = () => {
     navigate("/results");
+  };
+
+  //모달 닫기
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -29,22 +39,22 @@ const Test = ({ user }) => {
           </>
         ) : (
           <>
-            <h1 className="text-3xl font-bold text-primary-color mb-6">
-              테스트 결과: {result}
-            </h1>
-            <p className="text-lg text-gray-700 mb-6">
-              {mbtiDescriptions[result] ||
-                "해당 성격 유형에 대한 설명이 없습니다."}
-            </p>
             <button
               onClick={handleNavigateToResults}
               className="w-full bg-primary-color text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition duration-300 hover:text-[#FF5A5F]"
             >
-              결과 페이지로 이동하기
+              다른 사람 결과도 보기
             </button>
           </>
         )}
       </div>
+      {isModalOpen && (
+        <ResultModal
+          result={result}
+          mbtiDescription={mbtiDescriptions[result]}
+          onClose={closeModal}
+        />
+      )}
     </div>
   );
 };

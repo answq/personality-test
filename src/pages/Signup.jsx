@@ -1,8 +1,14 @@
 import AuthForm from "../components/AuthForm";
+import { useState } from "react";
 import { register } from "../api/auth";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const [formData, setFormData] = useState({
+    id: "",
+    password: "",
+    nickname: "",
+  });
   const navigate = useNavigate();
 
   //회원가입
@@ -14,6 +20,7 @@ const Signup = () => {
         nickname: formData.nickname,
       });
       if (data) {
+        alert("회원가입 되었습니다.");
         navigate("/login");
       } else {
         alert("회원가입 오류");
@@ -28,7 +35,12 @@ const Signup = () => {
     <div>
       <div>
         <h1>회원가입</h1>
-        <AuthForm mode="signup" onSubmit={handleSignup} />
+        <AuthForm
+          mode="sign-up"
+          formData={formData}
+          setFormData={setFormData}
+          onSubmit={handleSignup}
+        />
         <div>
           <p>
             이미 계정이 있으신가요? <Link to="/login">로그인</Link>

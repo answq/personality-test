@@ -1,7 +1,11 @@
+import { useState } from "react";
 
-const AuthForm = ({ mode, formData, setFormData, onSubmit }) => {
-
-
+const AuthForm = ({ mode, onSubmit }) => {
+  const [formData, setFormData] = useState({
+    id: "",
+    password: "",
+    nickname: "",
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -35,7 +39,7 @@ const AuthForm = ({ mode, formData, setFormData, onSubmit }) => {
           placeholder="비밀번호"
           required
         />
-        {mode === "signup" && (
+        {mode === "sign-up" && (
           <input
             type="text"
             name="nickname"
