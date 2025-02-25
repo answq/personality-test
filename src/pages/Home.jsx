@@ -1,14 +1,30 @@
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 
 const Home = () => {
+  const { accessToken } = useContext(AuthContext);
+
+  const isLoggedIn = Boolean(accessToken);
+
   return (
     <div className="min-h-screen bg-white flex justify-center items-center relative">
-      <Link
-        to="/login"
-        className="absolute top-4 right-4 text-grey-700 rounded-lg hover:text-gray-400 transition duration-300 font-semibold text-sm"
-      >
-        로그인하기
-      </Link>
+      {!isLoggedIn && (
+        <Link
+          to="/login"
+          className="absolute top-4 right-4 text-grey-700 rounded-lg hover:text-gray-400 transition duration-300 font-semibold text-sm"
+        >
+          로그인하기
+        </Link>
+      )}
+      {isLoggedIn && (
+        <Link
+          to="/my-page"
+          className="absolute top-4 right-20 text-grey-700 rounded-lg hover:text-gray-400 transition duration-300 font-semibold text-sm"
+        >
+          마이페이지
+        </Link>
+      )}
       <div className="text-center">
         <h1 className="text-3xl font-semibold text-gray-800 mb-6">
           내 MBTI는 뭘까?
